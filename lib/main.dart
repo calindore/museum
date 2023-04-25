@@ -15,15 +15,32 @@ class MuseumApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: const ArtWork(),
+      home: const Artwork(),
     );
   }
 }
 
-class ArtWork extends StatefulWidget {
-  const ArtWork({super.key});
-  static const bool _isFavorite = false;
+class Artwork extends StatefulWidget {
+  const Artwork({super.key});
 
+  @override
+  State<Artwork> createState() => ArtworkState();
+}
+
+class ArtworkState extends State<Artwork> {
+  bool balance = false;
+
+  void _changeBoolean() {
+    setState(() {
+      if (balance) {
+        balance = false;
+      } else {
+        balance = true;
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -71,12 +88,11 @@ class ArtWork extends StatefulWidget {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _changeBoolean,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
     );
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
